@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 // 로그인 클릭시 실행되는 controllers
 exports.loginClick = async (req, res) => {
   try {
+    console.log('로그인 요청 들어옴')
     // front에서 보내는 id와 pw value값
 
     const front_id = req.body.user_id;
