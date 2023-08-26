@@ -13,8 +13,8 @@ const {
 router.post("/duplicateId", ValidateDuplicateUserId);
 router.post("/duplicateNickName", ValidateDuplicateNickName);
 router.post("/signUp", SaveUserInfo);
-router.post("/logout", isLogin, Logout);
-router.get('/loginUser',isLogin,GetLoginUser)
+router.post("/logout", Logout);
+router.get('/loginUser',GetLoginUser)
 module.exports = router;
 
 // 로그인

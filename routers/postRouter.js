@@ -22,26 +22,26 @@ const storage = multer.diskStorage({
   });
   
   const upload = multer({ storage: storage });
-router.get('/allboard',isLogin,allBoard);
-router.post("/write",upload.array("uploadedFiles",5),isLogin,createBoard);
+router.get('/allboard',allBoard);
+router.post("/write",upload.array("uploadedFiles",5),createBoard);
 router.get('/detail/:id',detailBoard);
 router.post("/edit/:id",upload.array("uploadedFiles",5),editBoard)
 router.get("/delete/:id",deleteBoard)
 
 router.get('/commentlist',commentlist)
-router.post('/createComment',isLogin,createComment)
-router.post('/commentEdit/:id',isLogin,editComment)
-router.get('/commentDelet/:id',isLogin,deleteComment)
+router.post('/createComment',createComment)
+router.post('/commentEdit/:id',editComment)
+router.get('/commentDelet/:id',deleteComment)
 
-router.get('/recommentlist',isLogin,recommentlist)
-router.post('/createRecomment',isLogin,createRecomment)
-router.get('/deleteRecomment/:id',isLogin,deleteRecomment)
+router.get('/recommentlist',recommentlist)
+router.post('/createRecomment',createRecomment)
+router.get('/deleteRecomment/:id',deleteRecomment)
 
-router.post("/updatelikes/:id",isLogin,updateLikes)
-router.get("/deleltlikes/:id",isLogin,deleteLikes)
+router.post("/updatelikes/:id",updateLikes)
+router.get("/deleltlikes/:id",deleteLikes)
 
 
-router.post("/updateboardlikes/:id",isLogin,updatBoardLikes)
-router.get("/deleltboardlikes/:id",isLogin,BoarddeleteLikes)
+router.post("/updateboardlikes/:id",updatBoardLikes)
+router.get("/deleltboardlikes/:id",BoarddeleteLikes)
 
 module.exports = router
