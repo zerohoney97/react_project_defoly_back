@@ -27,4 +27,4 @@
 // };
 // module.exports = getAttractionPicture;
 // 크롤러 안 사용함
-"use strict";
+// "use strict";

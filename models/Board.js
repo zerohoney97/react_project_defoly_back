@@ -24,10 +24,7 @@ class Board extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        users_id: {
-          type: Sequelize.INTEGER,
-          allowNull: true,
-        },
+      
         nickname :{
           type: Sequelize.STRING(20),
           allowNull: false,
@@ -52,6 +49,7 @@ class Board extends Sequelize.Model {
   static associate(db) {
     db.Board.hasMany(db.Comment, { foreignKey: "board_id", sourceKey: "id" });
     db.Board.hasMany(db.LikeBoard, { foreignKey: "board_id", sourceKey: "id" });
+    db.Board.belongsTo(db.User,{ foreignKey: "user_id", targetKey: "id" })
   }
 }
 

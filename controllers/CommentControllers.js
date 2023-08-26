@@ -3,12 +3,11 @@ const { User, Board, Comment,Recomment } = require("../models")
 // 댓글을 보여줄 수 있는 컨트롤러
 exports.commentlist = async(req,res)=>{
     try {
+        const userdata = await User.findOne({ where: { id }})
         const data = await Comment.findAll({
             include:[{model:Recomment}]
         })
-        console.log("댓글을 보여줄 수 있는 컨트롤러")
-        console.log(data)
-        res.json(data)
+        res.json(data,userdata)
     } catch (error) {
         console.log("commentlist 오류터짐")
         console.log(error)
@@ -17,19 +16,17 @@ exports.commentlist = async(req,res)=>{
 
 // 댓글 작성 컨드롤러
 exports.createComment = async (req, res) => {
-    // const { id } = req.decoded;
-    const id = 1;
-    console.log("==================")
-    console.log(id)
+    const userId = req.decoded
+    const UserFront_id = userId.front_id
+    const userinfo = await User.findOne({where : {user_id:UserFront_id}})
+    const userid = userinfo.id;
     const { board_id, detail } = req.body
-    console.log(detail)
-    console.log(board_id)
 
     try {
         await Comment.create({
             board_id,
             detail: detail,
-            user_id:id,
+            user_id:userid,
         })
         res.send("create success")
         res.send()
@@ -55,7 +52,6 @@ exports.editComment = async (req, res) => {
 exports.deleteComment = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id)
         await Comment.destroy({ where: { id } });
         res.send("delete success")
     } catch (error) {

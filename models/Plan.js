@@ -22,6 +22,7 @@ class Plan extends Sequelize.Model {
   static associate(db) {
     db.Plan.belongsTo(db.User, { foreignKey: "user_id", targetKey: "id" });
     db.Plan.hasMany(db.Attraction, { foreignKey: "plan_id", sourceKey: "id" });
+
   }
 }
 

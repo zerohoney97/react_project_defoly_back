@@ -14,8 +14,10 @@ const multer = require("multer");
 // 회원가입,로그인 기능이 있는 라우터
 const userRouter = require("./routers/user");
 const postRouter = require("./routers/postRouter");
-const planRouter = require("./routers/planRouter");const mypageRouter = require("./routers/mypageRouter")
+const planRouter = require("./routers/planRouter");
+const mypageRouter = require("./routers/mypageRouter")
 const adminRouter = require("./routers/adminRouter")
+const boardRouter = require("./routers/boardlistRouter");
 
 
 // // Multer 설정
@@ -36,8 +38,8 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://zerohoney.com"],
-    // origin: ["*"],
+    // origin: ["http://13.125.126.65"],
+    origin: ["http://localhost:3000"],
     credentials: true,
   })
 );
@@ -57,7 +59,6 @@ app.use(
 
 
 
-console.log("123123");
 
 sequelize
   .sync({ force: false })
@@ -73,6 +74,7 @@ app.use("/post",postRouter)
 app.use("/user", userRouter);
 app.use("/mypage", mypageRouter);
 app.use("/admin", adminRouter);
+app.use("/board", boardRouter);
 
 // gptAPI 테스트 -----20230807 zerohoney
 app.use("/openAI", testGPT);

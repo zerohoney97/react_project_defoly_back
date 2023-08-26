@@ -1,5 +1,7 @@
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 exports.SaveUserInfo = async (req, res) => {
   const { user_id, user_pw, nickname, email } = req.body;
 
@@ -13,7 +15,6 @@ exports.SaveUserInfo = async (req, res) => {
       res.send("already user exist");
     } else {
       bcrypt.hash(user_pw, 10, async (err, hash) => {
-        console.log(hash);
         if (err) {
           console.log(err);
           res.send("Error hashing password in SaveUserInfo");
@@ -36,7 +37,6 @@ exports.SaveUserInfo = async (req, res) => {
 };
 
 exports.ValidateDuplicateUserId = async (req, res) => {
-  console.log("들어오니????????????????/");
   const { user_id } = req.body;
 
   try {
@@ -66,3 +66,44 @@ exports.ValidateDuplicateNickName = async (req, res) => {
     res.status(404);
   }
 };
+
+exports.Logout = async (req, res) => {
+  try {
+    console.log(req.decoded, "디코디드");
+    let token = jwt.sign({}, process.env.ACCESSTOKENKEY, {
+      expiresIn: "0",
+    });
+    req.session.access_token = token;
+    res.send("success");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.Logout = async (req, res) => {
+  try {
+    console.log(req.decoded, "디코디드");
+    let token = jwt.sign({}, process.env.ACCESSTOKENKEY, {
+      expiresIn: "0",
+    });
+    req.session.access_token = token;
+    res.send("success");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.GetLoginUser=async(req,res)=>{
+
+
+  try {
+    const {front_id}=req.decoded;
+    const userInfo=await User.findOne({where:{user_id:front_id}});
+    userInfo.user_pw=''
+    res.json(userInfo)
+  } catch (error) {
+    console.log(error)
+    res.send('fail')
+  }
+
+}

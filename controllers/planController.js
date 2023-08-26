@@ -4,8 +4,6 @@ exports.SavePlan = async (req, res) => {
   try {
     const { selectedUserPlan, duration, name, who, how } = req.body;
     const { front_id } = req.decoded;
-    console.log(req.body);
-    console.log(req.decoded);
     const user = await User.findOne({ where: { user_id: front_id } });
     if (user) {
       const savePlan = await Plan.create({
@@ -50,3 +48,14 @@ exports.SavePlan = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.GetPlan = async (req, res) => {
+  try {
+    const {id} = req.body;
+    const plan = await Plan.findOne({where : {id}})
+    const attraction = await Attraction.findAll({where : {plan_id : plan.id}})
+    res.json({plan, attraction})
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -59,7 +59,6 @@ const createAdminUser = async () => {
     
   } else {
     bcrypt.hash("aaaa1111!", 10, async (err, hash) => {
-      console.log(hash);
       if (err) {
         console.log(err);
         res.send("Error hashing password in SaveUserInfo");

@@ -10,7 +10,6 @@ const openai = new OpenAIApi(configuration);
 const whoText = (whoArr) => {};
 
 const sendPropmpt = async (gptData) => {
-console.log(gptData)
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
@@ -47,6 +46,5 @@ console.log(gptData)
 exports.saveUserPlan = async (req, res) => {
   const { gptData } = req.body;
   const ans = await sendPropmpt(gptData);
-  console.log(ans)
   res.json(ans);
 };

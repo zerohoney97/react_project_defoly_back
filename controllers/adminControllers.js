@@ -35,7 +35,6 @@ exports.unauthUser = async (req, res) => {
 // 거절 & 삭제
 exports.deleteUser = async (req, res) => {
     const user_id = req.params.id;
-    console.log(user_id)
     try {
         await User.destroy({where : {user_id}})
         res.json("success")

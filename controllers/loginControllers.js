@@ -5,17 +5,13 @@ const jwt = require("jsonwebtoken");
 // 로그인 클릭시 실행되는 controllers
 exports.loginClick = async (req, res) => {
   try {
-    console.log('로그인 요청 들어옴')
     // front에서 보내는 id와 pw value값
 
     const front_id = req.body.user_id;
     const front_pw = req.body.user_pw;
 
-    // console.log(front_id);
-    // console.log(front_pw);
 
     const useridExist = await User.findOne({ where: { user_id: front_id } });
-    console.log(useridExist.is_accept);
     if (useridExist == null) {
       res.json("id_non-existent");
       // 프론트쪽에서 받아서 alert 를 띄우거나 경고창을 따로 띄워주기
@@ -31,11 +27,10 @@ exports.loginClick = async (req, res) => {
           },
           process.env.ACCESSTOKENKEY,
           {
-            expiresIn: "30m",
+            expiresIn: "1h",
           }
         );
         req.session.access_token = token;
-        // console.log("login session : ", req.session);
         res.json("login_success");
         // 프론트쪽에서 받아서 화면 전환시킬것.
       } else {
