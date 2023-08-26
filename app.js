@@ -37,7 +37,14 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://zerohoney.com"],
+    origin: [
+      "http://127.0.0.1:8080",
+      "http://52.79.43.68",
+      "http://localhost:8080",
+      "http://127.0.0.1:5500",
+      "https://zerohoney.com",
+      "http://zerohoney.com",
+    ],
     // origin: ["http://localhost:3000"],
     credentials: true,
   })
