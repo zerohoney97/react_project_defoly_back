@@ -55,7 +55,7 @@ app.use(
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
-    // cookie: { sameSite: "None", secure: true }, // 이 부분에서 secure 옵션을 true로 설정합니다.
+    cookie: { sameSite: "None" }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
 );
 
