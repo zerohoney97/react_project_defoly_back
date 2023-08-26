@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get("/getInfo", getUserInfo);
+router.get("/getInfo", isLogin, getUserInfo);
 router.post(
   "/updateInfo",
   isLogin,
@@ -26,9 +26,9 @@ router.post(
   updateUserInfo
 );
 
-router.get("/getPlan", getUserPlan);
-router.get("/getReview", getUserReview);
-router.get("/getComment", getUserComment);
-router.get("/getNotice", getUserNotice);
+router.get("/getPlan", isLogin, getUserPlan);
+router.get("/getReview", isLogin, getUserReview);
+router.get("/getComment", isLogin, getUserComment);
+router.get("/getNotice", isLogin, getUserNotice);
 
 module.exports = router;
