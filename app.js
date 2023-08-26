@@ -40,8 +40,6 @@ app.use(
     origin: ["https://zerohoney.com"],
     // origin: ["http://localhost:3000"],
     credentials: true,
-    allowedHeaders:true,
-    
   })
 );
 
