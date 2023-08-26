@@ -15,10 +15,9 @@ const multer = require("multer");
 const userRouter = require("./routers/user");
 const postRouter = require("./routers/postRouter");
 const planRouter = require("./routers/planRouter");
-const mypageRouter = require("./routers/mypageRouter")
-const adminRouter = require("./routers/adminRouter")
+const mypageRouter = require("./routers/mypageRouter");
+const adminRouter = require("./routers/adminRouter");
 const boardRouter = require("./routers/boardlistRouter");
-
 
 // // Multer 설정
 // const storage = multer.diskStorage({
@@ -38,7 +37,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://zerohoney.com"],
+    origin: ["https://zerohoney.com", "*"],
     // origin: ["http://localhost:3000"],
     credentials: true,
   })
@@ -57,9 +56,6 @@ app.use(
 //   // 나머지 응답 처리 로직
 // });
 
-
-
-
 sequelize
   .sync({ force: false })
   .then((e) => {
@@ -70,7 +66,7 @@ sequelize
   });
 
 app.use("/", mainRouter);
-app.use("/post",postRouter)
+app.use("/post", postRouter);
 app.use("/user", userRouter);
 app.use("/mypage", mypageRouter);
 app.use("/admin", adminRouter);
