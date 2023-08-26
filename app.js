@@ -32,6 +32,15 @@ const boardRouter = require("./routers/boardlistRouter");
 // const upload = multer({ storage: storage });
 
 // 아마 form 데이터
+app.use(
+  session({
+    secret: process.env.SESSION_KEY,
+    resave: false,
+    saveUninitialized: false,
+    proxy: true,
+    cookie: { sameSite: "None", secure: true }, // 이 부분에서 secure 옵션을 true로 설정합니다.
+  })
+);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -47,16 +56,6 @@ app.use(
     ],
     // origin: ["http://localhost:3000"],
     credentials: true,
-  })
-);
-
-app.use(
-  session({
-    secret: process.env.SESSION_KEY,
-    resave: false,
-    saveUninitialized: false,
-    proxy: true,
-    cookie: { sameSite: "None", secure: true }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
 );
 
