@@ -38,8 +38,8 @@ app.use(express.json());
 
 app.use(
   cors({
-    // origin: ["http://13.125.126.65"],
-    origin: ["http://localhost:3000"],
+    origin: ["https://zerohoney.com"],
+    // origin: ["http://localhost:3000"],
     credentials: true,
   })
 );
