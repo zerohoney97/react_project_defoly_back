@@ -5,6 +5,6 @@ const { SavePlan, GetPlan } = require("../controllers/planController");
 router.post("/save", isLogin, SavePlan);
 // router.get("/getPic", getAttractionPicture);
 
-router.post("/getPlan", isLogin, GetPlan);
+router.post("/getPlan", GetPlan);
 
 module.exports = router;

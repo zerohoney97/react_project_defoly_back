@@ -28,7 +28,7 @@ router.get('/detail/:id',detailBoard);
 router.post("/edit/:id",upload.array("uploadedFiles",5),editBoard)
 router.get("/delete/:id",deleteBoard)
 
-router.get('/commentlist',isLogin,commentlist)
+router.get('/commentlist',commentlist)
 router.post('/createComment',isLogin,createComment)
 router.post('/commentEdit/:id',isLogin,editComment)
 router.get('/commentDelet/:id',isLogin,deleteComment)

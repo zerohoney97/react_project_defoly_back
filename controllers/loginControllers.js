@@ -10,7 +10,6 @@ exports.loginClick = async (req, res) => {
     const front_id = req.body.user_id;
     const front_pw = req.body.user_pw;
 
-
     const useridExist = await User.findOne({ where: { user_id: front_id } });
     if (useridExist == null) {
       res.json("id_non-existent");
@@ -30,8 +29,10 @@ exports.loginClick = async (req, res) => {
             expiresIn: "1h",
           }
         );
-        console.log(req.sessionID,'loggg')
+        console.log(req.sessionID, "loggg");
+
         req.session.access_token = token;
+        console.log(req.session, "cookie");
         res.json("login_success");
         // 프론트쪽에서 받아서 화면 전환시킬것.
       } else {
@@ -42,6 +43,6 @@ exports.loginClick = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-//   YdgmudAHhYIO5cV6QcHOly8jkCJYIX6h
-// n4-oGmlvYaMiqu3q2CTIkEVxCLbCxANe
+  //   YdgmudAHhYIO5cV6QcHOly8jkCJYIX6h
+  // n4-oGmlvYaMiqu3q2CTIkEVxCLbCxANe
 };
