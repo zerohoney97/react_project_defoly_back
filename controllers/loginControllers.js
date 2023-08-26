@@ -33,7 +33,7 @@ exports.loginClick = async (req, res) => {
 
         req.session.access_token = token;
         console.log(req.session, "cookie");
-        // res.cookie("userInfo", token);
+        res.cookie("userInfo", token);
         res.json("login_success");
         // 프론트쪽에서 받아서 화면 전환시킬것.
       } else {
