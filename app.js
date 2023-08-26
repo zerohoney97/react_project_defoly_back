@@ -37,7 +37,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["https://zerohoney.com","*"],
+    origin: ["https://zerohoney.com"],
     // origin: ["http://localhost:3000"],
     credentials: true,
   })
