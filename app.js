@@ -38,8 +38,25 @@ app.use(
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
+    proxy: true,
+    cookie: { sameSite: "None", secure: true }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
 );
+// server_name zerohoney.site www.zerohoney.site;
+
+// location / {
+//         # First attempt to serve request as file, then
+//         # as directory, then fall back to displaying a 404.
+// root /home/front/build;
+//         try_files $uri /index.html;
+
+// }
+
+// location /api/ {
+// proxy_set_header HOST $host;
+// proxy_pass http://localhost:8080;
+// proxy_redirect off;
+// }
 
 app.use(
   cors({
