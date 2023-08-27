@@ -32,7 +32,7 @@ const FileStore = require("session-file-store")(session);
 // });
 
 // const upload = multer({ storage: storage });
-
+app.enable("trust proxy");
 // 아마 form 데이터
 app.use(
   session({
@@ -41,7 +41,8 @@ app.use(
     resave: false,
     saveUninitialized: false,
     proxy: true,
-    cookie: { sameSite: "None", secure: true, maxAge: 600000 }, // 이 부분에서 secure 옵션을 true로 설정합니다.
+    name: "MyCoolWebAppCookieName",
+    cookie: { sameSite: "none", secure: true, maxAge: 600000, httpOnly: true }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
 );
 // server_name zerohoney.site www.zerohoney.site;
