@@ -38,8 +38,7 @@ app.use(
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
-    cookie: { sameSite: "None", secure: true ,maxAge: 600000}, // 이 부분에서 secure 옵션을 true로 설정합니다.
-  
+    cookie: { sameSite: "None", secure: true,maxAge:600000 }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
 );
 // server_name zerohoney.site www.zerohoney.site;
@@ -105,6 +104,5 @@ app.use("/plan", planRouter);
 const server = app.listen(8080, () => {
   console.log("server on");
 });
-
 
 // rlt xptmxmtmxm
