@@ -33,8 +33,13 @@ exports.loginClick = async (req, res) => {
 
         req.session.access_token = token;
         console.log(req.session, "cookie");
-        res.cookie("userInfo", token); 
-        res.json("login_success");
+        res
+          .cookie("userInfo", token, {
+            httpOnly: true, //XSS공격을 막기위해 추가로 설정한 것
+            sameSite: "none",
+            secure: true,
+          })
+          .json("login_success");
         // 프론트쪽에서 받아서 화면 전환시킬것.
       } else {
         res.json("id_exist_but_pw_wrong");
