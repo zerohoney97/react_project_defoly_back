@@ -29,9 +29,9 @@ exports.loginClick = async (req, res) => {
             expiresIn: "1h",
           }
         );
-        console.log(req.sessionID, "loggg");
+        // console.log(req.sessionID, "loggg");
 
-        req.session.access_token = token;
+        // req.session.access_token = token;
         console.log(req.session, "cookie");
         res
           .cookie("access_token", token, {

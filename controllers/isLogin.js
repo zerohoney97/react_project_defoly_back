@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 exports.isLogin = async (req, res, next) => {
   try {
-    const obj = req.session;
+    // const obj = req.session;
     // console.log(req, "리퀘스트");
     // console.log(req.sessionID, "isLo");
     console.log(req.cookies, "isLo");
