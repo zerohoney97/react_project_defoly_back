@@ -19,6 +19,7 @@ const planRouter = require("./routers/planRouter");
 const mypageRouter = require("./routers/mypageRouter");
 const adminRouter = require("./routers/adminRouter");
 const boardRouter = require("./routers/boardlistRouter");
+const FileStore = require("session-file-store")(session);
 
 // // Multer 설정
 // const storage = multer.diskStorage({
@@ -35,10 +36,11 @@ const boardRouter = require("./routers/boardlistRouter");
 // 아마 form 데이터
 app.use(
   session({
+    store: new FileStore(),
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
-    cookie: { sameSite: "None", secure: true,maxAge:600000 }, // 이 부분에서 secure 옵션을 true로 설정합니다.
+    cookie: { sameSite: "None", secure: true, maxAge: 600000 }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
 );
 // server_name zerohoney.site www.zerohoney.site;
