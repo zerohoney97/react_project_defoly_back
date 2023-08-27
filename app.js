@@ -53,6 +53,7 @@ app.use(
       "http://127.0.0.1:5500",
       "https://zerohoney.com",
       "http://zerohoney.com",
+      "https://zerohoney.site",
     ],
     // origin: ["http://localhost:3000"],
     credentials: true,
