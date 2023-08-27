@@ -39,7 +39,7 @@ app.use(
     store: new FileStore(),
     secret: process.env.SESSION_KEY,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     proxy: true,
     cookie: { sameSite: "None", secure: true, maxAge: 600000 }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
