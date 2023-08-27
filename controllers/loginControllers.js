@@ -31,7 +31,7 @@ exports.loginClick = async (req, res) => {
         );
         console.log(req.sessionID, "loggg");
 
-        req.session.token = token;
+        req.session.access_token = token;
         console.log(req.session, "cookie");
         res
           // .cookie("userInfo", token, {
