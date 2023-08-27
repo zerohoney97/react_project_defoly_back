@@ -38,7 +38,6 @@ exports.loginClick = async (req, res) => {
             httpOnly: true, //XSS공격을 막기위해 추가로 설정한 것
             sameSite: "none",
             secure: true,
-            domain: "https://zerohoney.site",
           })
           .json("login_success");
         // 프론트쪽에서 받아서 화면 전환시킬것.
