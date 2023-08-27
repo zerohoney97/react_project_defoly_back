@@ -3,6 +3,7 @@ const { User, Plan, Board, Comment, Notice } = require("../models");
 // 로그인 유저 정보
 exports.getUserInfo = async (req, res) => {
   try {
+    console.log("겟 인포", req.decoded);
     const { front_id } = req.decoded;
     const user = await User.findOne({ where: { user_id: front_id } });
     res.json(user);
@@ -46,15 +47,15 @@ exports.getUserPlan = async (req, res) => {
 
 // 로그인 유저가 쓴 게시글
 exports.getUserReview = async (req, res) => {
-    try {
-        const {front_id} = req.decoded;
-        const user = await User.findOne({where : {user_id : front_id}})
-        const reviewAll = await Board.findAll({where : {user_id : user.id}})
-        res.json(reviewAll);
-    } catch (error) {
-        console.log(error);
-    }
-}
+  try {
+    const { front_id } = req.decoded;
+    const user = await User.findOne({ where: { user_id: front_id } });
+    const reviewAll = await Board.findAll({ where: { user_id: user.id } });
+    res.json(reviewAll);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // 로그인 유저가 쓴 댓글
 exports.getUserComment = async (req, res) => {
