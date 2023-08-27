@@ -36,7 +36,7 @@ exports.loginClick = async (req, res) => {
         res
           .cookie("userInfo", token, {
             httpOnly: true, //XSS공격을 막기위해 추가로 설정한 것
-            sameSite: "none",
+            sameSite: "None",
             secure: true,
           })
           .json("login_success");

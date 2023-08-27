@@ -9,6 +9,7 @@ const app = express();
 const mainRouter = require("./routers/mainRouter");
 // gptAPI 테스트 -----20230807 zerohoney
 const testGPT = require("./routers/testGPT");
+const cookieParser = require("cookie-parser");
 // 이미지를 받기위한 multer
 const multer = require("multer");
 // 회원가입,로그인 기능이 있는 라우터
@@ -37,12 +38,8 @@ app.use(
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
-    proxy: true,
-    cookie: { sameSite: "None", secure: true }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
 );
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 app.use(
   cors({
@@ -59,6 +56,9 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cookieParser());
 
 // app.get('/static/js/main.5518ef4c.js', (req, res) => {
 //   res.type('application/javascript');
