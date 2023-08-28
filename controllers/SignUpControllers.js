@@ -25,6 +25,7 @@ exports.SaveUserInfo = async (req, res) => {
             nickname,
             email,
             is_accept: false,
+            profile_img : 'default_profile.jpeg'
           });
           res.send("user signUp success");
         }
@@ -69,41 +70,27 @@ exports.ValidateDuplicateNickName = async (req, res) => {
 
 exports.Logout = async (req, res) => {
   try {
-    console.log(req.decoded, "디코디드");
-    let token = jwt.sign({}, process.env.ACCESSTOKENKEY, {
-      expiresIn: "0",
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
     });
-    req.session.access_token = token;
+    console.log("쿠키 없앰");
     res.send("success");
   } catch (error) {
     console.log(error);
   }
 };
 
-exports.Logout = async (req, res) => {
+
+exports.GetLoginUser = async (req, res) => {
   try {
-    console.log(req.decoded, "디코디드");
-    let token = jwt.sign({}, process.env.ACCESSTOKENKEY, {
-      expiresIn: "0",
-    });
-    req.session.access_token = token;
-    res.send("success");
+    const { front_id } = req.decoded;
+    const userInfo = await User.findOne({ where: { user_id: front_id } });
+    userInfo.user_pw = "";
+    res.json(userInfo);
   } catch (error) {
     console.log(error);
+    res.send("fail");
   }
 };
-
-exports.GetLoginUser=async(req,res)=>{
-
-
-  try {
-    const {front_id}=req.decoded;
-    const userInfo=await User.findOne({where:{user_id:front_id}});
-    userInfo.user_pw=''
-    res.json(userInfo)
-  } catch (error) {
-    console.log(error)
-    res.send('fail')
-  }
-
-}

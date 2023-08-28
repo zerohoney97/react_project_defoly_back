@@ -5,11 +5,11 @@ const session = require("express-session");
 const { sequelize } = require("./models");
 const path = require("path");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 const mainRouter = require("./routers/mainRouter");
 // gptAPI 테스트 -----20230807 zerohoney
 const testGPT = require("./routers/testGPT");
-const cookieParser = require("cookie-parser");
 // 이미지를 받기위한 multer
 const multer = require("multer");
 // 회원가입,로그인 기능이 있는 라우터
@@ -19,6 +19,7 @@ const planRouter = require("./routers/planRouter");
 const mypageRouter = require("./routers/mypageRouter");
 const adminRouter = require("./routers/adminRouter");
 const boardRouter = require("./routers/boardlistRouter");
+const boardEditRouter = require("./routers/boardEditRouter");
 
 // // Multer 설정
 // const storage = multer.diskStorage({
@@ -31,8 +32,48 @@ const boardRouter = require("./routers/boardlistRouter");
 // });
 
 // const upload = multer({ storage: storage });
-app.enable("trust proxy");
+
+// nginix 설정
+// location / {
+//   # First attempt to serve request as file, then
+//   # as directory, then fall back to displaying a 404.
+// root /home/front/build;
+//   try_files $uri /index.html;
+
+// }
+
+// location /api/ {
+// proxy_set_header HOST $host;
+// proxy_pass http://127.0.0.1:8080/;
+// proxy_redirect off;
+// proxy_http_version 1.1;
+//   proxy_set_header Upgrade $http_upgrade;
+//   proxy_set_header Connection 'upgrade';
+//   proxy_set_header Host $host;
+//   proxy_cache_bypass $http_upgrade;
+// }
 // 아마 form 데이터
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cookieParser());
+
+app.use(
+  cors({
+    // origin: ["http://13.125.126.65"],
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:8080",
+      "http://52.79.43.68",
+      "http://localhost:8080",
+      "http://127.0.0.1:5500",
+      "https://zerohoney.com",
+      "http://zerohoney.com",
+      "https://zerohoney.site",
+    ],
+    credentials: true,
+  })
+);
+
 app.use(
   session({
     secret: process.env.SESSION_KEY,
@@ -42,40 +83,6 @@ app.use(
     cookie: { sameSite: "none", secure: true, maxAge: 600000, httpOnly: true }, // 이 부분에서 secure 옵션을 true로 설정합니다.
   })
 );
-// server_name zerohoney.site www.zerohoney.site;
-
-// location / {
-//         # First attempt to serve request as file, then
-//         # as directory, then fall back to displaying a 404.
-// root /home/front/build;
-//         try_files $uri /index.html;
-
-// }
-
-// location /api/ {
-// proxy_set_header HOST $host;
-// proxy_pass http://localhost:8080;
-// proxy_redirect off;
-// }
-
-app.use(
-  cors({
-    origin: [
-      "http://127.0.0.1:8080",
-      "http://52.79.43.68",
-      "http://localhost:8080",
-      "http://127.0.0.1:5500",
-      "https://zerohoney.com",
-      "http://zerohoney.com",
-      "https://zerohoney.site",
-    ],
-    // origin: ["http://localhost:3000"],
-    credentials: true,
-  })
-);
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(cookieParser());
 
 // app.get('/static/js/main.5518ef4c.js', (req, res) => {
 //   res.type('application/javascript');
@@ -97,6 +104,9 @@ app.use("/user", userRouter);
 app.use("/mypage", mypageRouter);
 app.use("/admin", adminRouter);
 app.use("/board", boardRouter);
+app.use("/board", boardEditRouter);
+
+
 
 // gptAPI 테스트 -----20230807 zerohoney
 app.use("/openAI", testGPT);

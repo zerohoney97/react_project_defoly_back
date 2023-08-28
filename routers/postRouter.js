@@ -33,6 +33,9 @@ const {
 } = require("../controllers/boardlikeController");
 
 // Multer 설정
+// 배포시 경로 설정 잘하자
+// path.join(__dirname, "..", "..", "front", "build", "imgs", "userplanimg")
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(
@@ -54,7 +57,7 @@ router.get("/detail/:id", detailBoard);
 router.post("/edit/:id", upload.array("uploadedFiles", 5), editBoard);
 router.get("/delete/:id", deleteBoard);
 
-router.get("/commentlist", commentlist);
+// router.get("/commentlist", isLogin, commentlist);
 router.post("/createComment", isLogin, createComment);
 router.post("/commentEdit/:id", isLogin, editComment);
 router.get("/commentDelet/:id", isLogin, deleteComment);

@@ -16,3 +16,27 @@ exports.BoardList = async (req, res) => {
     }
 
   }
+
+  exports.get_board_Info = async (req, res)=>{
+    try {
+        let param = req.params.id;
+        const temp = await Board.findOne({
+            where: {
+              id: param,
+            }
+          });
+
+          let title = temp.dataValues.title;
+          let detail = temp.dataValues.detail;
+          let images = temp.dataValues.images;
+
+        // const data = temp.map((value) => {
+            
+        //     return { ...value.dataValues, User: value.dataValues.User.profile_img }
+        // })
+        res.json({title, detail, images})
+
+    } catch (error) {
+        console.log(error);
+    }
+  }

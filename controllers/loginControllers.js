@@ -26,13 +26,11 @@ exports.loginClick = async (req, res) => {
           },
           process.env.ACCESSTOKENKEY,
           {
-            expiresIn: "1h",
+            expiresIn: "2h",
           }
         );
-        // console.log(req.sessionID, "loggg");
-
         // req.session.access_token = token;
-        console.log(req.session, "cookie");
+        console.log(req.sessionID, "loggg");
         res
           .cookie("access_token", token, {
             httpOnly: true, //XSS공격을 막기위해 추가로 설정한 것
