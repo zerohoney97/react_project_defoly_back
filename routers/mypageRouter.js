@@ -3,11 +3,12 @@ const multer = require("multer");
 const path = require("path")
 const {isLogin} = require("../controllers/isLogin")
 const {getUserInfo, updateUserInfo, getUserPlan, getUserReview, getUserComment, getUserNotice} = require("../controllers/mypageControllers")
+// path.join(__dirname, "..", "..", "front", "build", "imgs", "userplanimg")
 
 // Multer 설정
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join("..", "front", "public", "imgs", "profiles"));
+    cb(null, path.join(__dirname, "..", "..", "front", "build", "imgs", "profiles"));
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
