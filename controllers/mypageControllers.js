@@ -12,25 +12,39 @@ exports.getUserInfo = async (req, res) => {
   }
 };
 
-// 유저 정보 수정
 exports.updateUserInfo = async (req, res) => {
   console.log("들어옴?");
   try {
     const { front_id } = req.decoded;
     const { nickname } = req.body;
-    const profileImg = req.files[0].filename;
-    console.log(req.files);
-    console.log(profileImg);
-    await User.update(
-      { nickname: nickname, profile_img: profileImg },
-      { where: { user_id: front_id } }
-    );
+    const profileImg = req.files[0]?.filename;
+    // console.log('nickname', nickname)
+    // console.log(req.files);
+    // console.log(profileImg);
+
+    if (!nickname) {
+      await User.update(
+        { profile_img: profileImg },
+        { where: { user_id: front_id } }
+      );
+    }
+    if (profileImg == undefined) {
+      await User.update(
+        { nickname: nickname },
+        { where: { user_id: front_id } }
+      );
+    }
+    if (nickname && profileImg) {
+      await User.update(
+        { nickname: nickname, profile_img: profileImg },
+        { where: { user_id: front_id } }
+      );
+    }
     res.json("success");
   } catch (error) {
     console.log(error);
   }
 };
-
 // 로그인 유저가 만든 일정
 exports.getUserPlan = async (req, res) => {
   try {
